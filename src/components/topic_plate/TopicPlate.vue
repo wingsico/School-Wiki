@@ -1,48 +1,69 @@
 <template>
+<!--哇这是真的丑-->
+<div class="hack"> 
   <div class="topics">
+    <div class="layout">
+      <router-link to="/topic/welcome" tag="div">
+        <div>
+          <p>#迎新专栏</p>
+        </div>
+      </router-link>
   
-    <router-link to="/topic/welcome">
+      <router-link to="/topic/fun" tag="div">
+        <div>
+          <p>#吃喝玩乐</p>
+        </div>
+      </router-link>
+  
+      <router-link to="/topic/query" tag="div">
+        <div>
+          <p>#地点时间查询</p>
+        </div>
+      </router-link>
+    </div>
+  
+    <div class="layout">
+      <router-link to="/topic/affairs" tag="div">
+        <div>
+          <p>#行政事务</p>
+        </div>
+      </router-link>
+  
+      <router-link to="/topic/navigation" tag="div">
+        <div>
+          <p>#网址导航</p>
+        </div>
+      </router-link>
+  
+      <router-link to="/topic/traffic" tag="div">
+        <div>
+          <p>#交通出行</p>
+        </div>
+      </router-link>
+    </div>
+  
+    <div class="bottom layout">
+      <router-link to="/topic/club" tag="div">
+        <div>
+          <p>#社团组织</p>
+        </div>
+      </router-link>
+  
+      <!--占位符-->
       <div>
-        <span>#迎新专栏</span>
+        <div class="placeholder">
+          <p></p>
+        </div>
       </div>
-    </router-link>
   
-    <router-link to="/topic/fun">
       <div>
-        <span>#吃喝玩乐</span>
+        <div class="placeholder">
+          <p></p>
+        </div>
       </div>
-    </router-link>
   
-    <router-link to="/topic/query">
-      <div>
-        <span>#地点时间查询</span>
-      </div>
-    </router-link>
-  
-    <router-link to="/topic/affairs"> 
-      <div>
-        <span>#行政事务</span>
-      </div>
-    </router-link>
-  
-    <router-link to="/topic/navigation">
-      <div>
-        <span>#网址导航</span>
-      </div>
-    </router-link>
-  
-    <router-link to="/topic/traffic">
-      <div>
-        <span>#交通出行</span>
-      </div>
-    </router-link>
-  
-    <router-link to="/topic/club">
-      <div>
-        <span>#社团组织</span>
-      </div>
-    </router-link>
-  
+    </div>
+  </div>
   </div>
 </template>
 
@@ -52,7 +73,9 @@ export default {
     return {}
   },
   methods: {
+    getViewHeight() {
 
+    }
   },
   mounted() {
     this.$root.eventHub.$emit('inputOnBlur')
@@ -60,37 +83,52 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+html, body {
+  height: 100%;
+}
 .topics {
   height: calc(100% - 2.7rem);
-  width: 100%;
-  margin-top: 1.5rem;
-  text-align: center
+  display: flex;
+  flex-direction: column;
 }
 
-.topics div {
+.topics .layout {
+  flex: 1;
+  display: flex;
+}
+
+.topics .layout>div {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+
+.topics .layout>div div {
+  display: inline-block;
   width: 3rem;
   height: 3rem;
-  text-align: center;
+  background-color: #fff;
+  line-height: 3rem;
   position: relative;
-  text-align: left;
-  
-display: inline-block;
-
+  text-align: center;
 }
 
-.topics div span {
-  position: absolute;
-  
-  
-  width: 3rem;
-  background-color: #fff;
-  text-align: center;
+
+.topics .layout>div  div p {
+  line-height: 0.7rem;
   font-size: 0.5rem;
-  left: 0;
+  position: absolute;
   top: 50%;
-  margin-top: -1.5rem;
-  left: 50%;
-  margin-left: -1.5rem;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.topics .bottom .placeholder {
+  background: transparent;
 }
 </style>

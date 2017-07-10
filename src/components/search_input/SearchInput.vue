@@ -26,22 +26,22 @@ export default {
 
     addBorderBottom(){
       this.state.isFocus = true
-      this.$refs.input.style.borderBottom = "1px solid #ff8080"
+      this.$root.eventHub.$refs.input.style.borderBottom = "1px solid #ff8080"
     },
 
     removeBorderBottom(){   
       this.state.isFocus = false
-      this.$refs.input.style.borderBottom = "none" 
-      this.$refs.input.blur()
+      this.$root.eventHub.$refs.input.style.borderBottom = "none" 
+      this.$root.eventHub.$refs.input.blur()
     },
-    shareState(){
-      this.$root.eventHub.$refs = this.$refs
-      console.log(this.$refs)
-      console.log(this.$refs.input)
+
+    shareDom(){
+      // 全局保存节点，防止重新渲染的时候节点不存在，解决报错问题
+      this.$root.eventHub.$refs.input = this.$refs.input
     }
   },
 
-  created() {
+  mounted() {
     this.$root.eventHub.$on('clearValue',()=>{
       this.value = ''
     })
@@ -54,7 +54,7 @@ export default {
       this.removeBorderBottom()
     })   
 
-    this.shareState()
+    this.shareDom()
   },
 
   watch: {

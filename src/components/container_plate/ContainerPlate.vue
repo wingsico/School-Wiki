@@ -28,7 +28,7 @@ export default {
   components: {
     HotQuestions,
   },
-  created() {
+  mounted() {
     this.$root.eventHub.$emit('inputOnBlur')
   }
 }

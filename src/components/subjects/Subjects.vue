@@ -1,17 +1,21 @@
 <template>
   <div class="question-plate" ref="list">
-    <div v-for="item in questions">
-      <router-link tag="div" to="/student/1">
-        <h4 class="question">sssss</h4>
-        <div class="answer">
-          <span class="homer">小家园：</span>
-          <p>哈哈哈哈好好好或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</p>
-        </div>
-        <div class="pageviews">
-          <span>300</span>次浏览</div>
-      </router-link>
-    </div>
-
+    <transition-group tag="ul" name="custom-classes-transition" enter-active-class="zoomInLeft" class="fade-in-list">
+      <div v-for="(item,index) in questions" :key="index" class="list">
+        <router-link tag="div" to="/student/1">
+          <h4 class="question">sssss</h4>
+          <div class="answer">
+            <span class="homer">小家园：</span>
+            <p>哈哈哈哈好好好或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</p>
+          </div>
+          <div class="pageviews">
+            <span>300</span>次浏览</div>
+        </router-link>
+  
+      </div>
+  
+    </transition-group>
+  
     <div class="isViewport" ref="load"></div>
   
   </div>
@@ -21,19 +25,20 @@ export default {
   data() {
     return {
       type: this.$route.params.type,
-      questions: [1,1,1,1,1,1,1,1,1,1]
+      questions: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     }
   },
   methods: {
     loadMore() {
+      console.log(1)
       let isView = this.isViewport()
       if (isView) {
-        this.questions.push(1,1,1,1,1,1,1,1,1,1)
+        this.questions.push(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
       }
     },
 
     isViewport() {
-      let scroll = document.body.scrollTop + window.innerHeight
+      let scroll = document.body.scrollTop + window.innerHeight + this.$refs.load.offsetHeight
       if (scroll > this.$refs.list.offsetHeight) {
         return true
       }
@@ -43,7 +48,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.loadMore)
   },
-  beforeDestroy(){
+  beforeDestroy() {
     window.removeEventListener('scroll', this.loadMore)
   }
 }
@@ -52,8 +57,7 @@ export default {
 <style scoped>
 .question-plate .isViewport {
   width: 100%;
-  height: 1rem;
-  background-color: #44ceff;
+  height: 0.3rem;
 }
 
 
@@ -62,16 +66,17 @@ export default {
   text-align: left;
 }
 
-.question-plate>div {
+.question-plate .list {
   height: 2.4rem;
   padding: 0.3rem 1rem;
   position: relative;
   margin-bottom: 0.6rem;
   background-color: #fff;
+  animation-duration: 0.8s;
 }
 
 
-.question-plate>div h4 {
+.question-plate .list h4 {
   font-size: 0.5rem;
   height: 0.8rem;
   line-height: 0.8rem;
@@ -79,7 +84,7 @@ export default {
 }
 
 
-.question-plate>div p {
+.question-plate .list p {
   height: 1.4rem;
   position: absolute;
   vertical-align: top;
@@ -95,7 +100,7 @@ export default {
   left: 1.8rem;
 }
 
-.question-plate>div .pageviews {
+.question-plate .list .pageviews {
   display: block;
   font-size: 0.4rem;
   color: #ccc;
@@ -107,15 +112,16 @@ export default {
 }
 
 
-.question-plate>div .homer {
+.question-plate .list .homer {
   font-size: 0.4rem;
   height: 0.7rem;
   line-height: 0.7rem;
   width: 1.1rem;
 }
 
-.question-plate>div .answer {
+.question-plate .list .answer {
   margin-top: 0.2rem;
   position: relative;
 }
+
 </style>

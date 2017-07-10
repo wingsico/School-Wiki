@@ -7,10 +7,10 @@
     </div>
     <div class="btns">
   
-      <router-link to="/type/id" tag="div" class="prev" replace="">
+      <router-link to="/topic" tag="div" class="prev" replace>
         上一条： <span>男男女女女女</span>
       </router-link>
-      <router-link to="/type/id" tag="div" class="next" replace="">
+      <router-link to="/" tag="div" class="next" replace>
         下一条：
         <span>的点点滴滴多多</span>
       </router-link>

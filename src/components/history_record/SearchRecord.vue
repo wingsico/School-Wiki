@@ -1,15 +1,18 @@
 <template>
   <div class="related-area">
-    <div class="records" v-show="!state.isValueExist">
-      <span>搜索记录</span>
-      <ul>
-        <li v-for="(item,index) in historyRecords" :key="index">
-          <span class="record" @click="addToInput(index)">{{ item }}</span>
-        </li>
-      </ul>
-    </div>
-    <transition name="fade">
-    <SearchResult v-show="state.isValueExist" :result="searchResult"></SearchResult>
+  
+    <transition name="custom-classes-transition" enter-active-class="zoomInRight" leave-active-class="zoomOutRight">
+  
+      <div class="records animated" v-if="!state.isValueExist" key="histroy">
+        <span>搜索记录</span>
+        <ul>
+          <li v-for="(item,index) in historyRecords" :key="index">
+            <span class="record" @click="addToInput(index)">{{ item }}</span>
+          </li>
+        </ul>
+      </div>
+  
+      <SearchResult v-else :result="searchResult" key="result" class="animated result"></SearchResult>
     </transition>
   </div>
 </template>
@@ -71,6 +74,13 @@ export default {
   box-sizing: border-box;
 }
 
+.related-area .records {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-duration: 0.5s;
+  
+}
 .related-area .records>span {
   color: #ccc;
 }
@@ -79,4 +89,14 @@ export default {
   font-size: 0.5rem;
   line-height: 0.75rem;
 }
+
+
+.related-area .result {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  animation-duration: 0.5s;
+}
+
 </style>

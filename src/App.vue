@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <!--主路由出口，淡入淡出动画，点击进入具体回答切换主路由-->
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
+    <transition name="custom-classes-transition"   enter-active-class="fadeInRight" leave-active-class="fadeOutRight" mode="out-in">
+      <router-view class="animated index"></router-view>
     </transition>
   
   </div>
 </template>
 
-<script>
+<script> 
 
 export default {
   name: 'app',
@@ -22,9 +22,10 @@ export default {
   font-family: "微软雅黑";
 }
 
+
+
 html,
 body {
-  height: 100%;
   width: 100%;
   overflow-x: hidden;
   background-color: #f4f4f4;
@@ -53,16 +54,13 @@ span {
   color: #2c3e50;
 }
 
-.fade-enter-active,
+/*.fade-enter-active,
 .fade-leave-active {
   transition: opacity .2s
 }
 
 .fade-enter,
-.fade-leave-to
-/* .fade-leave-active in <2.1.8 */
-
-{
+.fade-leave-to {
   opacity: 0
 }
 
@@ -86,5 +84,9 @@ span {
   opacity: 0;
   -webkit-transform: translate(-30px, 0);
   transform: translate(-30px, 0);
+}*/
+
+.index {
+  animation-duration: 0.3s;  
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <SearchInput></SearchInput>
-    <transition :name="transType">
-      <router-view class="child-view"></router-view>
+    <transition name="custom-classes-transition" enter-active-class="bounceInRight" leave-active-class="bounceOutLeft" mode="out-in">
+      <router-view class="animated container-plates"></router-view>
     </transition>
   
   </div>
@@ -14,12 +14,11 @@ export default {
   name: 'Index',
   data() {
     return {
-      transType: 'slide-left'
+
     }
   },
   methods: {
     setLocalStorage() {
-      
       if (!('searchRecords' in localStorage)) {
         localStorage.setItem('searchRecords', '[]')
       }
@@ -30,22 +29,15 @@ export default {
   },
   created() {
     this.setLocalStorage()
-    
+
   },
-  watch: {
-    '$route'(to, from) {
-      this.$root.eventHub.$emit('clearValue')
-      const toDepth = to.path.split('/').length
-      const fromDepth = from.path.split('/').length
-      this.transType = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-    }
-  }
+
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1,
+h1,
 h2 {
   font-weight: normal;
 }
@@ -65,10 +57,12 @@ a {
 }
 
 .container {
- 
+
   height: 100%;
 }
 
-
-
+.container-plates {
+  animation-duration: 0.5s;
+  height: calc(100% - 1.2rem);
+}
 </style>
