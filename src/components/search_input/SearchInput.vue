@@ -1,9 +1,12 @@
 <template>
   <div class="search-box">
     <router-link to="/search">
-      <input @focus="addBorderBottom"  placeholder="输入问题关键字搜索" ref="input" v-model="value">
+      <input @focus="addBorderBottom" placeholder="输入问题关键字搜索" ref="input" v-model="value">
     </router-link>
-    <div class="back" @click="backToPrevPage" v-show="state.isFocus">×</div>
+    <i class="iconfont icon-fangdajing"></i>
+    <div class="back">
+    <i class="iconfont icon-cha" @click="backToPrevPage" v-show="state.isFocus"></i>
+    </div>
   </div>
 </template>
 
@@ -15,9 +18,10 @@ export default {
       state: {
         isFocus: false,
       },
-      value: ''
+      value: '',
     }
   },
+ 
   methods: {
     backToPrevPage() {
       window.history.go(-1)
@@ -26,12 +30,11 @@ export default {
 
     addBorderBottom(){
       this.state.isFocus = true
-      this.$root.eventHub.$refs.input.style.borderBottom = "1px solid #ff8080"
     },
 
     removeBorderBottom(){   
+      this.value = ''
       this.state.isFocus = false
-      this.$root.eventHub.$refs.input.style.borderBottom = "none" 
       this.$root.eventHub.$refs.input.blur()
     },
 
@@ -59,6 +62,7 @@ export default {
 
   watch: {
     value() {
+      this.value = this.value.trim()
       if (this.value === '') {
         this.$root.eventHub.$emit('noValue')
       } else {
@@ -72,26 +76,38 @@ export default {
 </script>
 
 <style scoped>
+
+
+.iconfont {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0.25rem;
+  font-size: 0.5rem;
+  color: #737373;
+}
+
 .search-box {
-  width: 100%;
   position: relative;
   background-color: #fff;
   z-index: 1;
+  height: 1.1rem;
+  border: 1px solid #a0a0a0;
+  border-radius: 0.1rem;
+  line-height: 1.1rem;
 }
 
 input {
   display: block;
   border: none;
-  width: 90%;
-  height: 1.2rem;
-  line-height: 1.2rem;
-  font-size: 0.5rem;
-  margin: 0 auto;
+  height: 1.1rem;
+  line-height: 1.1rem;
+  font-size: 0.4rem;
   outline: none;
+  margin-left: 1rem;
+  background-color: transparent;
+  width: 7rem;
 }
-
-
-
 
 .related-area {
   position: absolute;
@@ -102,18 +118,17 @@ input {
   height: 100%;
 }
 
-.back {
-  width: 0.7rem;
-  height: 0.7rem;
-  line-height: 0.7rem;
-  text-align: center;
+.search-box .back {
+  height: 1rem;
   position: absolute;
-  right: 0.5rem;
-  top: 0.27rem;
-  color: #fff;
-  font-size: 0.6rem;
-  background-color: #ff8080;
-  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.2rem;
 }
+
+.search-box .icon-cha {
+  font-size: 0.65rem;
+}
+
 </style>
 

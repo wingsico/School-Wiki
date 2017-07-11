@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <SearchInput></SearchInput>
+    <SearchInput></SearchInput> 
     <transition name="custom-classes-transition" enter-active-class="bounceInRight" leave-active-class="bounceOutLeft" mode="out-in">
       <router-view class="animated container-plates"></router-view>
     </transition>
@@ -29,7 +29,7 @@ export default {
   },
   created() {
     this.setLocalStorage()
-
+    this.setTitle('百事通')
   },
 
 }
@@ -37,6 +37,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
 h1,
 h2 {
   font-weight: normal;
@@ -56,13 +58,16 @@ a {
   color: #42b983;
 }
 
-.container {
+p {
+  text-align: justify;
+  text-justify: inter-ideograph
+}
 
-  height: 100%;
+.container {
+  padding: 0.4rem;
 }
 
 .container-plates {
   animation-duration: 0.5s;
-  height: calc(100% - 1.2rem);
 }
 </style>

@@ -1,17 +1,14 @@
 <template>
   <div class="related-area">
-  
     <transition name="custom-classes-transition" enter-active-class="zoomInRight" leave-active-class="zoomOutRight">
-  
       <div class="records animated" v-if="!state.isValueExist" key="histroy">
-        <span>搜索记录</span>
         <ul>
           <li v-for="(item,index) in historyRecords" :key="index">
             <span class="record" @click="addToInput(index)">{{ item }}</span>
+            <i class="iconfont icon-fangdajing"></i>
           </li>
         </ul>
       </div>
-  
       <SearchResult v-else :result="searchResult" key="result" class="animated result"></SearchResult>
     </transition>
   </div>
@@ -55,7 +52,7 @@ export default {
     })
 
     this.getLocalStorage()
-
+    // this.setTitle('搜你所想')
   }
 }
 
@@ -63,40 +60,54 @@ export default {
 
 <style scoped>
 .related-area {
-  position: absolute;
   width: 100%;
   text-align: center;
-  top: 1.2rem;
-  padding-top: 0.3rem;
-  background-color: rgb(255, 255, 255);
+  padding-top: 0.1rem;
   z-index: 0;
-  height: calc(100% - 1.2rem);
+  height: 100%;
   box-sizing: border-box;
 }
 
 .related-area .records {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
   animation-duration: 0.5s;
-  
+  /*height: calc(100% - 1.9rem);*/
+  box-sizing: border-box;
 }
+
 .related-area .records>span {
   color: #ccc;
 }
 
 .related-area li {
-  font-size: 0.5rem;
-  line-height: 0.75rem;
+  position: relative;
+  display: block;
+  text-align: left; 
+  padding-left: 1rem;
+  font-size: 0.4rem;
+  height: 1rem;
+  line-height: 1rem;
+  border-bottom: 1px solid #cdcdcd;
+  letter-spacing: 0.01rem;
 }
 
+.related-area li span {
+  display: block;
+}
 
 .related-area .result {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
   animation-duration: 0.5s;
 }
+
+
+.iconfont {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0.25rem;
+  font-size: 0.5rem;
+  color: #737373;
+}
+
 
 </style>

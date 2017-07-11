@@ -1,5 +1,5 @@
 <template>
-  <div class="question-plate">
+  <div class="question-plate search-main">
     <div @click="setLocalStorage">
       <router-link tag="div" to="/student/1" replace>
         <h4 class="question">{{ searchResult }}</h4>
@@ -64,23 +64,31 @@ export default {
     this.$root.eventHub.$on('hasValue', (val) => {
       this.inputValue = val
     })
+    // this.setTitle('')
   }
 }
 </script>
 
 <style scoped>
-
+.search-main {
+  width: calc(100% - 0.8rem);
+ position: absolute;
+ top: 1.5rem;
+}
+ 
 .question-plate {
-  margin-top: 0.7rem;
+  margin-top: 0.55rem;
   text-align: left;
 }
 
 .question-plate>div {
-  height: 2.4rem;
-  padding: 0.3rem 1rem;
+  height: 2rem;
+  padding: 0.4rem 0.5rem;
   position: relative;
   margin-bottom: 0.6rem;
   background-color: #fff;
+  border: 1px solid #cdcdcd;
+  border-radius: 0.1rem;
 }
 
 
@@ -89,50 +97,60 @@ export default {
   height: 0.8rem;
   line-height: 0.8rem;
   font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 5.5rem;
+  color: #404041;
 }
 
 
 .question-plate>div p {
-  height: 1.4rem;
+  height: 1.1rem;
   position: absolute;
   vertical-align: top;
   font-size: 0.4rem;
-  line-height: 0.7rem;
+  line-height: 0.55rem;
   word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  top: 0rem;
-  left: 1.8rem;
+  top: 0;
+  left: 1.5rem;
+  color: #737373;
 }
 
 .question-plate>div .pageviews {
   display: block;
-  font-size: 0.4rem;
+  font-size: 0.3rem;
   color: #ccc;
   position: absolute;
-  right: 1rem;
-  top: 0.27rem;
+  right: 0.5rem;
+  top: 0.4rem;
   height: 0.8rem;
   line-height: 0.8rem;
+  color: #737373;
 }
 
 
 .question-plate>div .homer {
   font-size: 0.4rem;
-  height: 0.7rem;
-  line-height: 0.7rem;
   width: 1.1rem;
+  color: #737373;
 }
 
 .question-plate>div .answer {
-  margin-top: 0.2rem;
   position: relative;
+  height: 1.1rem;
 }
 
-
+.question-plate .nav {
+  height: 100%;
+}
 
 </style>
 

@@ -16,20 +16,24 @@ export default {
 </script>
 
 <style>
+
+
 * {
   margin: 0;
   padding: 0;
-  font-family: "微软雅黑";
+  
 }
 
 
 
 html,
 body {
-  width: 100%;
   overflow-x: hidden;
-  background-color: #f4f4f4;
+  background-color: #fbfbfb;
 }
+
+
+
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -37,7 +41,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100%;
 }
 
 ul {

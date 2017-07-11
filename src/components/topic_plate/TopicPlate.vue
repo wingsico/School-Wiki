@@ -1,70 +1,48 @@
 <template>
-<!--哇这是真的丑-->
-<div class="hack"> 
-  <div class="topics">
-    <div class="layout">
-      <router-link to="/topic/welcome" tag="div">
-        <div>
-          <p>#迎新专栏</p>
-        </div>
-      </router-link>
+  <!--哇这是真的丑-->
+    <div class="topics" ref="topics">
+      <div class="layout">
+        <router-link to="/topic/welcome" tag="div">
+          <div>
+            #迎新专栏
+          </div>
+        </router-link>
   
-      <router-link to="/topic/fun" tag="div">
-        <div>
-          <p>#吃喝玩乐</p>
-        </div>
-      </router-link>
+        <router-link to="/topic/life" tag="div" class="middle">
+          <div>
+            #校园生活
+          </div>
+        </router-link>
   
-      <router-link to="/topic/query" tag="div">
-        <div>
-          <p>#地点时间查询</p>
-        </div>
-      </router-link>
-    </div>
-  
-    <div class="layout">
-      <router-link to="/topic/affairs" tag="div">
-        <div>
-          <p>#行政事务</p>
-        </div>
-      </router-link>
-  
-      <router-link to="/topic/navigation" tag="div">
-        <div>
-          <p>#网址导航</p>
-        </div>
-      </router-link>
-  
-      <router-link to="/topic/traffic" tag="div">
-        <div>
-          <p>#交通出行</p>
-        </div>
-      </router-link>
-    </div>
-  
-    <div class="bottom layout">
-      <router-link to="/topic/club" tag="div">
-        <div>
-          <p>#社团组织</p>
-        </div>
-      </router-link>
-  
-      <!--占位符-->
-      <div>
-        <div class="placeholder">
-          <p></p>
-        </div>
+        <router-link to="/topic/affairs" tag="div">
+          <div>
+            #行政事务
+          </div>
+        </router-link>
       </div>
   
-      <div>
-        <div class="placeholder">
-          <p></p>
-        </div>
+      <div class="layout">
+        <router-link to="/topic/organization" tag="div">
+          <div>
+            #社团组织
+          </div>
+        </router-link>
+  
+        <router-link to="/topic/study" tag="div" class="middle">
+          <div>
+            #学习
+          </div>
+        </router-link>
+  
+        <router-link to="/topic/query" tag="div">
+          <div>
+            #快速查询
+          </div>
+        </router-link>
       </div>
   
+    
     </div>
-  </div>
-  </div>
 </template>
 
 <script>
@@ -73,9 +51,13 @@ export default {
     return {}
   },
   methods: {
-    getViewHeight() {
+    // setViewHeight() {
+    //   this.$refs.topics.style.height = window.innerHeight - this.$root.eventHub.$refs.input.offsetHeight + 'px'
+    // }
+  },
+  created() {
+    // this.setTitle('百事通')
 
-    }
   },
   mounted() {
     this.$root.eventHub.$emit('inputOnBlur')
@@ -84,51 +66,38 @@ export default {
 </script>
 
 <style>
-
-html, body {
-  height: 100%;
-}
 .topics {
-  height: calc(100% - 2.7rem);
   display: flex;
   flex-direction: column;
 }
 
 .topics .layout {
-  flex: 1;
   display: flex;
+  margin-top: 0.85rem;
 }
 
 .topics .layout>div {
   display: flex;
-  height: 100%;
+  flex: 1;
+  display: inline-block;
+  font-size: 0.4rem;
+  background-color: #fff;
+  border-radius: 0.1rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  color: #4fb2ff;
+  border: 1px solid #cdcdcd;
+  
 }
 
 
-.topics .layout>div div {
-  display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  background-color: #fff;
-  line-height: 3rem;
-  position: relative;
-  text-align: center;
+
+
+.topics .middle {
+  margin: 0 0.4rem;
 }
 
 
-.topics .layout>div  div p {
-  line-height: 0.7rem;
-  font-size: 0.5rem;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-}
-
-.topics .bottom .placeholder {
-  background: transparent;
-}
 </style>

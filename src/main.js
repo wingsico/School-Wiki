@@ -8,6 +8,7 @@ import animation from './static/css/animate.min.css' // 第三方动画库
 import axios from 'axios' // 引入axios，发送请求
 Vue.config.productionTip = false 
 Vue.prototype.$http = axios // 全局使用，只能在methods内使用
+Vue.prototype.setTitle = require('./static/js/setTitle')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
