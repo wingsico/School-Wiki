@@ -29,7 +29,7 @@ export default {
   },
   created() {
     this.setLocalStorage()
-    this.setTitle('百事通')
+    this.setTitle('NCU问答')
   },
 
 }
@@ -60,7 +60,7 @@ a {
 
 p {
   text-align: justify;
-  text-justify: inter-ideograph
+  text-justify: inter-ideograph;
 }
 
 .container {
@@ -68,6 +68,8 @@ p {
 }
 
 .container-plates {
-  animation-duration: 0.5s;
+  -moz-animation-duration: 0.4s;
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
 }
 </style>

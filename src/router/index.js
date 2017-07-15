@@ -10,7 +10,6 @@ import Subjects from '../components/subjects/Subjects.vue'
 Vue.use(Router)
 
 export default new Router({
-  history: true,
   routes: [
     {
       path: '/',
@@ -35,7 +34,7 @@ export default new Router({
           },
           component: TopicPlate
         }, {
-          path: '/topic/:type',
+          path: '/api/:type/:typecatalog',
           meta: {
             title: '专栏'
           },
@@ -43,7 +42,7 @@ export default new Router({
         }
       ]
     }, {
-      path: '/:type/:id',
+      path: '/api/:type/:typecatalog/:id',
       meta: {
         title: '百事通'
       },

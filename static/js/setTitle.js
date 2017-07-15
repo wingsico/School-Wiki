@@ -5,7 +5,7 @@ function setDocumentTitle(title) {
     //利用iframe的onload事件刷新页面
     document.title = title;
     var iframe = document.createElement('iframe');
-    iframe.src = '/favicon.ico'; // 必须
+    iframe.src = '../static/ico/homer.ico'; // 必须
     iframe.style.visibility = 'hidden';
     iframe.scrolling = "no";
     iframe.style.width = '1px';

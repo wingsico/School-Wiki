@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <router-link to="/search">
-      <input @focus="addBorderBottom" placeholder="输入问题关键字搜索" ref="input" v-model="value">
+      <input @focus="addBorderBottom" placeholder='输入问题关键字搜索，如“学生”' ref="input" v-model="value">
     </router-link>
     <i class="iconfont icon-fangdajing"></i>
     <div class="back">
@@ -63,6 +63,7 @@ export default {
   watch: {
     value() {
       this.value = this.value.trim()
+      // console.log(this.value)
       if (this.value === '') {
         this.$root.eventHub.$emit('noValue')
       } else {
@@ -92,7 +93,7 @@ export default {
   background-color: #fff;
   z-index: 1;
   height: 1.1rem;
-  border: 1px solid #a0a0a0;
+  border: 1px solid #cdcdcd;
   border-radius: 0.1rem;
   line-height: 1.1rem;
 }

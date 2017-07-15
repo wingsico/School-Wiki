@@ -1,16 +1,16 @@
 <template>
   <div class="plates">
     <div class="topic-plate">
-      <router-link to="/topic/welcome"  tag="div">
-        <div>#迎新专栏</div>
+      <router-link to="/api/life/lifecatalog" tag="div">
+        <div>#校园生活</div>
       </router-link>
   
-      <router-link to="/topic/life" tag="div" class="middle">
-        <div >#校园生活</div>
+      <router-link to="/api/study/studycatalog" tag="div" class="middle">
+        <div>#学习</div>
       </router-link>
   
       <router-link to="/topic" tag="div" class="more">
-        <div>#更多</div>
+        <div>#更多热门</div>
       </router-link>
     </div>
     <HotQuestions></HotQuestions>
@@ -41,7 +41,7 @@ export default {
 .topic-plate {
   display: flex;
   flex-direction: row;
-  margin-top: 0.85rem;
+  margin-top: 0.5rem;
 }
 
 .topic-plate>div {
@@ -50,13 +50,13 @@ export default {
   display: inline-block;
   font-size: 0.4rem;
   background-color: #fff;
-  border-radius: 0.1rem;
+  border-radius: 0.15rem;
   height: 3.5rem;
   line-height: 3.5rem;
   justify-content: center;
   align-items: center;
   color: #4fb2ff;
-  border: 1px solid #cdcdcd;
+  box-shadow: 0 3px 20px 0 rgba(0,0,0,.12);
 }
 
 .topic-plate .more {
@@ -66,7 +66,5 @@ export default {
 .topic-plate .middle {
   margin: 0 0.4rem;
 }
-
-
 </style>
 

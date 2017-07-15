@@ -1,95 +1,61 @@
 <template>
-  <div id="app">
-    <!--主路由出口，淡入淡出动画，点击进入具体回答切换主路由-->
-    <transition name="custom-classes-transition"   enter-active-class="fadeInRight" leave-active-class="fadeOutRight" mode="out-in">
-      <router-view class="animated index"></router-view>
-    </transition>
-  
-  </div>
+	<div id="app">
+		<!--主路由出口，淡入淡出动画，点击进入具体回答切换主路由-->
+		<transition name="custom-classes-transition" enter-active-class="fadeIn" leave-active-class="fadeOut" mode="out-in">
+			<router-view class="animated" id="index"></router-view>
+		</transition>
+	
+	</div>
 </template>
 
-<script> 
-
+<script>
 export default {
-  name: 'app',
+	name: 'app',
 }
+
 </script>
 
 <style>
-
-
 * {
-  margin: 0;
-  padding: 0;
-  
+	margin: 0;
+	padding: 0;
 }
-
-
 
 html,
 body {
-  overflow-x: hidden;
-  background-color: #fbfbfb;
+	overflow-x: hidden;
+	background-color: #fbfbfb;
 }
 
-
-
-
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
 }
 
 ul {
-  padding: 0;
-  list-style: none;
+	padding: 0;
+	list-style: none;
 }
 
 a {
-  color: #2c3e50;
-  text-decoration: none;
+	color: #2c3e50;
+	text-decoration: none;
 }
 
 span {
-  color: #2c3e50;
+	color: #2c3e50;
 }
 
-/*.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .2s
+span.text-keywords {
+	color: #fc596a;
 }
 
-.fade-enter,
-.fade-leave-to {
-  opacity: 0
-}
-
-.child-view {
-  position: absolute;
-  top: 1.2rem;
-  width: 100%;
-  transition: all .5s cubic-bezier(.55, 0, .1, 1);
-}
-
-
-.slide-left-enter,
-.slide-right-leave-active {
-  opacity: 0;
-  -webkit-transform: translate(30px, 0);
-  transform: translate(30px, 0);
-}
-
-.slide-left-leave-active,
-.slide-right-enter {
-  opacity: 0;
-  -webkit-transform: translate(-30px, 0);
-  transform: translate(-30px, 0);
-}*/
-
-.index {
-  animation-duration: 0.3s;  
+#index {
+	-moz-animation-duration: 0.35s;
+	-webkit-animation-duration: 0.35s;
+	animation-duration: 0.35s;
 }
 </style>

@@ -1,158 +1,216 @@
 <template>
   <div class="question-plate search-main">
-    <div @click="setLocalStorage">
-      <router-link tag="div" to="/student/1" replace>
-        <h4 class="question">{{ searchResult }}</h4>
+    <div @click="setLocalStorage" v-for="(item,index) in result.data" :key="index">
+      <router-link tag="div" :to="item.suffix" replace>
+        <h4 class="question" v-html=" item.title "></h4>
         <div class="answer">
-          <span class="homer">小家园：</span>
-          <p>哈哈哈哈好好好或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</p>
+          <div class="homer-items">
+            <span class="homer">小家园</span>
+            <img class="homerIcon" src="../../assets/images/homer.png"></img>
+          </div>
+  
+          <p>{{ item.content }}</p>
         </div>
         <div class="pageviews">
-          <span>300</span>次浏览</div>
+          <i class="iconfont icon-liulan"></i>
+          <span>{{ item.page_view }}</span>
+        </div>
       </router-link>
     </div>
   
-    <div>
-      <router-link tag="div" to="/student/1">
-        <h4 class="question">怎么办理学生卡？</h4>
-        <div class="answer">
-          <span class="homer">小家园：</span>
-          <p>哈哈哈哈好好好或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</p>
-        </div>
-        <div class="pageviews">
-          <span>300</span>次浏览</div>
-      </router-link>
-    </div>
-  
+    <p class="tips" v-show="result.data.length === 0">什么也没找到呢，换一个搜一搜吧</p>
   </div>
 </template>
 <script>
 export default {
-  props: ['result'],
+  props: ['searchResult', 'searchValue'],
   data() {
     return {
-      inputValue: '',
-      searchResult: this.result
+      value: this.searchValue,
+      result: this.searchResult,
     }
   },
+
   methods: {
     setLocalStorage() {
       let records = JSON.parse(window.localStorage.getItem('searchRecords'))
       let len = records.length
-      if (this.inputValue != '') {
+      if (this.value != '') {
         if (len === 0) {
-          records.unshift(this.inputValue)
+          records.unshift(this.value)
         } else {
           for (let i = 0; i < len; i++) {
-            if (this.inputValue == records[i]) {
+            if (this.value == records[i]) {
               return
             }
           }
-          records.unshift(this.inputValue)
+          records.unshift(this.value)
         }
         localStorage.setItem('searchRecords', JSON.stringify(records))
       }
-    }
-  },
-  watch: {
-    result() {
-      this.searchResult = this.result
+
     }
   },
 
-  created() {
-    this.$root.eventHub.$on('hasValue', (val) => {
-      this.inputValue = val
-    })
-    // this.setTitle('')
+  watch: {
+    searchResult() {
+      // console.log(this.searchValue, this.searchResult)
+      this.result = this.searchResult
+      this.value = this.searchValue
+    }
+  },
+
+  computed: {
+    rebuildStr(str,keyword) {
+      console.log(str)
+      console.log(keyword)
+      let arr = str.split(keyword)
+
+      return arr.join('<span class="text-keywords">' + keyword + '</span>')
+    }
   }
 }
+
 </script>
 
 <style scoped>
-.search-main {
-  width: calc(100% - 0.8rem);
- position: absolute;
- top: 1.5rem;
-}
- 
+
+
 .question-plate {
-  margin-top: 0.55rem;
+  margin-top: 0.5rem;
   text-align: left;
 }
 
 .question-plate>div {
-  height: 2rem;
   padding: 0.4rem 0.5rem;
   position: relative;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
   background-color: #fff;
-  border: 1px solid #cdcdcd;
-  border-radius: 0.1rem;
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, .12);
+  border-radius: 0.15rem;
 }
 
 
 .question-plate>div h4 {
   font-size: 0.5rem;
-  height: 0.8rem;
-  line-height: 0.8rem;
+  /*height: 0.8rem;*/
+  line-height: 0.7rem;
   font-weight: normal;
+  /*overflow: hidden;*/
+  /*text-overflow: ellipsis;*/
+  word-wrap: break-word;
+  word-break: normal;
+  /*white-space: nowrap;*/
+  width: 79%;
+  color: #404041;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  width: 5.5rem;
-  color: #404041;
 }
 
 
 .question-plate>div p {
   height: 1.1rem;
   position: absolute;
-  vertical-align: top;
+  vertical-align: middle;
   font-size: 0.4rem;
-  line-height: 0.55rem;
+  line-height: 0.58rem;
   word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  top: 0;
+  top: 0.2rem;
   left: 1.5rem;
   color: #737373;
 }
 
 .question-plate>div .pageviews {
   display: block;
-  font-size: 0.3rem;
-  color: #ccc;
+  font-size: 0.4rem;
   position: absolute;
   right: 0.5rem;
   top: 0.4rem;
   height: 0.8rem;
   line-height: 0.8rem;
-  color: #737373;
 }
 
 
+.question-plate>div .pageviews span {
+  color: #cdcdcd;
+  position: relative;
+  top: -0.08rem;
+  right: 0;
+}
+
+
+
 .question-plate>div .homer {
-  font-size: 0.4rem;
+  font-size: 0.3rem;
   width: 1.1rem;
-  color: #737373;
+  color: #cdcdcd;
+  position: relative;
+  top: 0.8rem;
+  left: -0.1rem;
 }
 
 .question-plate>div .answer {
   position: relative;
-  height: 1.1rem;
+  height: 1.4rem;
 }
 
 .question-plate .nav {
   height: 100%;
 }
 
+.homer-items {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  top: 0.1rem;
+  left: 0.2rem;
+}
+
+.homerIcon {
+  height: 0.8rem;
+  width: 0.9rem;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -0.45rem;
+}
+
+.icon-liulan {
+  font-size: 0.6rem;
+  color: #cdcdcd;
+  position: relative;
+  top: 0rem;
+}
+
+
+.tips {
+  color: #44ceff;
+  font-size: 0.4rem;
+  text-align: center;
+}
+
+
+.question-plate .loading .iconfont {
+  font-size: 0.8rem;
+  color: #44ceff;
+}
+
+
+.question-plate .loading {
+  text-align: center;
+  display: block;
+  margin-top: 1rem;
+  animation-iteration-count: infinite;
+}
+
+
+
 </style>
-
-
-

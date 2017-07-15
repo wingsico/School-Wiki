@@ -1,42 +1,68 @@
 <template>
-
   <div class="question-plate" ref="list">
     <transition-group tag="ul" name="custom-classes-transition" enter-active-class="zoomInLeft" class="fade-in-list">
-      <li v-for="(item,index) in questions" :key="index" class="list animated">
-        <router-link tag="div" to="/student/1">
-          <h4 class="question">sssss</h4>
+      <li v-for="(item,index) in questions.data" :key="index" class="list animated">
+        <router-link tag="div" :to=" $route.params.typecatalog + '/' + item.suffix">
+          <h4 class="question">{{item.title}}</h4>
           <div class="answer">
-            <span class="homer">小家园：</span>
-            <p>哈哈哈哈好好好或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</p>
+  
+            <div class="homer-items">
+              <span class="homer">小家园</span>
+              <img class="homerIcon" src="../../assets/images/homer.png"></img>
+            </div>
+  
+            <p>{{ item.content }}</p>
           </div>
           <div class="pageviews">
-            <span>300</span>次浏览</div>
+            <i class="iconfont icon-liulan"></i>
+            <span>{{ item.page_view }}</span>
+          </div>
         </router-link>
       </li>
-      
-
-
+  
     </transition-group>
-    
-  <div class="isViewport" ref="load">loading...</div>
-
+  
+    <span class="loading animated bounce" ref="load" v-show="!isGetAll">
+      <i class="iconfont icon-jiayuanlianxi"></i>
+    </span>
+  
+    <span class="void-result" v-show="isGetAll">
+      已经到达最底部了~
+    </span>
+  
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      type: this.$route.params.type,
-      questions: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+      type: this.$route.params.type + '/' + this.$route.params.typecatalog,
+      questions: {},
+      isGetAll: false,
+      currentPage: 1,
+      isAnimation: false,
+      titleHash: {
+        life: '校园生活',
+        study: '学习',
+        administrativeaffairs: '行政事务'
+      }
     }
   },
   methods: {
     loadMore() {
       let isView = this.isViewport()
       if (isView) {
-        this.questions.push(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+        if (!!this.questions.next) {
+          if (!this.isAnimation) {
+            this.currentPage++
+            this.isAnimation = true
+            this.getMoreQuestions()
+          }
+        } else {
+          this.isGetAll = true
+          window.removeEventListener('scroll', this.loadMore)
+        }
       }
-      console.log()
     },
 
     isViewport() {
@@ -44,10 +70,36 @@ export default {
       if (scroll > this.$refs.list.offsetHeight) {
         return true
       }
+    },
+
+    getTopicQuestions() {
+      this.$http({
+        method: 'post',
+        url: 'https://wiki.ncuos.com/api/' + this.type + '?page=' + this.currentPage,
+      })
+        .then(res => {
+          this.questions = res.data
+        })
+    },
+
+
+    getMoreQuestions() {
+      this.$http({
+        method: 'post',
+        url: 'https://wiki.ncuos.com/api/' + this.type + '?page=' + this.currentPage,
+      })
+        .then(res => {
+          this.questions.data = this.questions.data.concat(res.data.data)
+          this.questions.next = res.data.next
+          this.isAnimation = false
+        })
     }
   },
-  created(){
-    // this.setTitle(this.type)
+
+
+  created() {
+    this.getTopicQuestions()
+    this.setTitle(this.titleHash[this.$route.params.type])
   },
   mounted() {
     window.addEventListener('scroll', this.loadMore)
@@ -59,87 +111,133 @@ export default {
 </script>
 
 <style scoped>
-
-
-.question-plate .isViewport {
+.question-plate .loading {
   text-align: center;
-  font-size: 0.5rem;
+  display: block;
+  margin-top: 1rem;
+  animation-iteration-count: infinite;
+}
+
+.question-plate .void-result {
+  text-align: center;
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.4rem;
+  color: #44ceff;
 }
 
 
+.question-plate .loading .iconfont {
+  font-size: 0.8rem;
+  color: #44ceff;
+}
+
+
+
 .question-plate {
-  margin-top: 0.55rem;
+  margin-top: 0.5rem;
   text-align: left;
 }
 
 .question-plate .list {
-  height: 2rem;
   padding: 0.4rem 0.5rem;
   position: relative;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
   background-color: #fff;
-  border: 1px solid #cdcdcd;
-  border-radius: 0.1rem;
-  text-align: left;
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, .12);
+  border-radius: 0.15rem;
 }
 
 
 .question-plate .list h4 {
   font-size: 0.5rem;
-  height: 0.8rem;
-  line-height: 0.8rem;
+  line-height: 0.7rem;
   font-weight: normal;
+  word-wrap: break-word;
+  word-break: normal;
+  width: 79%;
+  color: #404041;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  width: 5.5rem;
-  color: #404041;
 }
 
 
 .question-plate .list p {
   height: 1.1rem;
   position: absolute;
-  vertical-align: top;
+  vertical-align: middle;
   font-size: 0.4rem;
-  line-height: 0.55rem;
+  line-height: 0.58rem;
   word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  top: 0;
+  top: 0.2rem;
   left: 1.5rem;
   color: #737373;
 }
 
 .question-plate .list .pageviews {
   display: block;
-  font-size: 0.3rem;
-  color: #ccc;
+  font-size: 0.4rem;
   position: absolute;
   right: 0.5rem;
   top: 0.4rem;
   height: 0.8rem;
   line-height: 0.8rem;
-  color: #737373;
+}
+
+.question-plate .list .pageviews span {
+  color: #cdcdcd;
+  position: relative;
+  top: -0.08rem;
+  right: 0;
 }
 
 
 .question-plate .list .homer {
-  font-size: 0.4rem;
-  width: 1rem;
+
+  font-size: 0.3rem;
+  width: 1.1rem;
+  color: #cdcdcd;
   position: relative;
-  top: 0.03rem;
-  color: #737373;
+  top: 0.8rem;
+  left: -0.1rem;
 }
 
 .question-plate .list .answer {
   position: relative;
-  height: 1.1rem;
+  height: 1.4rem;
 }
 
+
+.homer-items {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  top: 0.1rem;
+  left: 0.2rem;
+}
+
+.homerIcon {
+  height: 0.8rem;
+  width: .9rem;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -0.45rem;
+}
+
+
+.icon-liulan {
+  font-size: 0.6rem;
+  color: #cdcdcd;
+  position: relative;
+  top: 0rem;
+}
 </style>
